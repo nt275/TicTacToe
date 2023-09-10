@@ -5,6 +5,7 @@ public class Main {
 
 		@SuppressWarnings("unused")
 		TicTacToe game = new TicTacToe();
+
 	}
 
 }

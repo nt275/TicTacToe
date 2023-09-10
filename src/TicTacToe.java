@@ -1,3 +1,9 @@
+/*
+ * This is a simple TicTacToe game that uses the Swing Framework.
+ *
+ * @author Nicholas Tylka
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -20,13 +26,14 @@ import javax.swing.JPanel;
 public class TicTacToe implements ActionListener {
 
 	Random random = new Random();
+	boolean playerOneTurn;
 	JFrame frame = new JFrame();
 	JPanel titlePanel = new JPanel();
 	JPanel buttonPanel = new JPanel(new GridLayout(3, 3));
 	JLabel textField = new JLabel();
 	JButton[] buttons = new JButton[9];
-	boolean playerOneTurn;
 
+	// constructor
 	public TicTacToe() {
 		// setup frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,6 +74,25 @@ public class TicTacToe implements ActionListener {
 		firstTurn();
 	}
 
+	public void firstTurn() {
+
+		// display title text for 2000/ms
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		// set who's turn it is using random
+		if (random.nextInt(2) == 0) {
+			playerOneTurn = true;
+			textField.setText("X Turn");
+		} else {
+			playerOneTurn = false;
+			textField.setText("O Turn");
+		}
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// loop through all buttons
@@ -97,25 +123,6 @@ public class TicTacToe implements ActionListener {
 		}
 	}
 
-	public void firstTurn() {
-
-		// display title text for 2000/ms
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		// set who's turn it is using random
-		if (random.nextInt(2) == 0) {
-			playerOneTurn = true;
-			textField.setText("X Turn");
-		} else {
-			playerOneTurn = false;
-			textField.setText("O Turn");
-		}
-	}
-
 	public void check() {
 		// check X win conditions
 		// if top row are X's
@@ -137,7 +144,7 @@ public class TicTacToe implements ActionListener {
 		} else if ((buttons[0].getText() == "X")
 				&& (buttons[3].getText() == "X")
 				&& (buttons[6].getText() == "X")) {
-			xWins(4, 5, 6);
+			xWins(0, 3, 6);
 			// else if middle column
 		} else if ((buttons[1].getText() == "X")
 				&& (buttons[4].getText() == "X")
@@ -180,7 +187,7 @@ public class TicTacToe implements ActionListener {
 		} else if ((buttons[0].getText() == "O")
 				&& (buttons[3].getText() == "O")
 				&& (buttons[6].getText() == "O")) {
-			oWins(4, 5, 6);
+			oWins(0, 3, 6);
 			// else if middle column
 		} else if ((buttons[1].getText() == "O")
 				&& (buttons[4].getText() == "O")
@@ -218,7 +225,6 @@ public class TicTacToe implements ActionListener {
 
 		// set text to show x won
 		textField.setText("X WINS!!!");
-
 	}
 
 	public void oWins(int a, int b, int c) {
@@ -235,5 +241,4 @@ public class TicTacToe implements ActionListener {
 		// set text to show o won
 		textField.setText("O WINS!!!");
 	}
-
 }
